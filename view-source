@@ -15,9 +15,9 @@ done
 if [ -n "$SERVER_URL" ] && [ -n "$FILE_TYPE" ]; then
 	OUTPUT_FILE="$HOME/tmp/view-source.$FILE_TYPE"
 	if [ -n "$POST_DATA" ]; then
-		curl "$SERVER_URL" -d "$POST_DATA" -o "$OUTPUT_FILE" && vim "$OUTPUT_FILE" && rm "$OUTPUT_FILE"
+		curl "$SERVER_URL" -d "$POST_DATA" -o "$OUTPUT_FILE" && view "$OUTPUT_FILE" && rm "$OUTPUT_FILE"
 	else
-		curl "$SERVER_URL" -o "$OUTPUT_FILE" && vim "$OUTPUT_FILE" && rm "$OUTPUT_FILE"
+		curl "$SERVER_URL" -o "$OUTPUT_FILE" && view "$OUTPUT_FILE" && rm "$OUTPUT_FILE"
 	fi
 else
 	usage
