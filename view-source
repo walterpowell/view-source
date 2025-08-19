@@ -1,0 +1,24 @@
+#!/data/data/com.termux/files/usr/bin/sh
+
+usage () {
+	echo 'Usage: view-source -u[rl]=[scheme]?[host][port]?[path]? -t[ype]=[file type] -d[ata]=[POST data]'
+}
+	
+while getopts ':d:u:t:' o; do
+	case $o in 
+		d) POST_DATA="$OPTARG";;
+		u) SERVER_URL="$OPTARG";;
+		t) FILE_TYPE="$OPTARG";;
+	esac
+done
+
+if [ -n "$SERVER_URL" ] && [ -n "$FILE_TYPE" ]; then
+	OUTPUT_FILE="$HOME/tmp/view-source.$FILE_TYPE"
+	if [ -n "$POST_DATA" ]; then
+		curl "$SERVER_URL" -d "$POST_DATA" -o "$OUTPUT_FILE" && view "$OUTPUT_FILE" && rm "$OUTPUT_FILE"
+	else
+		curl "$SERVER_URL" -o "$OUTPUT_FILE" && view "$OUTPUT_FILE" && rm "$OUTPUT_FILE"
+	fi
+else
+	usage
+fi
